@@ -54,8 +54,9 @@ const fetchFeaturedProducts = async (
   const products = await medusaClient.products
     .list({
       is_giftcard: false,
-      limit: 4,
+      // limit: 8,
       cart_id: cartId,
+      // collection_id: ["pcol_01H4ZCBJ8KE3BHFZM30HGZKCY2"],
     })
     .then(({ products }) => products)
     .catch((_) => [] as PricedProduct[])
@@ -75,8 +76,12 @@ const fetchFeaturedProducts = async (
       return {
         id: p.id!,
         title: p.title!,
+        subtitle: p.subtitle!,
         handle: p.handle!,
         thumbnail: p.thumbnail!,
+        collection: p.collection!,
+        // variants: p.variants!,
+        metadata: p.metadata!,
         price: cheapestVariant
           ? {
               calculated_price: formatAmount({

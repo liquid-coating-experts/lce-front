@@ -46,9 +46,9 @@ const RefinementList = ({
 
   return (
     <div>
-      <div className="px-8 py-4  small:pr-0 small:pl-8 small:min-w-[250px]">
-        <div className="flex gap-x-3 small:flex-col small:gap-y-3">
-          <span className="text-base-semi">Collections</span>
+      <div className="px-8 py-4 small:pr-0 small:pl-8 small:min-w-[250px]">
+        <div className="hidden lg:flex gap-x-3 small:flex-col small:gap-y-3">
+          <span className="text-base-semi ">Collections</span>
           <ul className="text-base-regular flex items-center gap-x-4 small:grid small:grid-cols-1 small:gap-y-2">
             {collections?.map((c) => (
               <li key={c.id}>

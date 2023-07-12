@@ -17,7 +17,8 @@ type MobileActionsProps = {
 }
 
 const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
-  const { variant, addToCart, options, inStock, updateOptions } = useProductActions()
+  const { variant, addToCart, options, inStock, updateOptions } =
+    useProductActions()
   const { state, open, close } = useToggleState()
 
   const price = useProductPrice({ id: product.id!, variantId: variant?.id })
@@ -70,7 +71,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
                 <div></div>
               )}
             </div>
-            <div className="grid grid-cols-2 w-full gap-x-4">
+            {/* <div className="grid grid-cols-2 w-full gap-x-4">
               <Button onClick={open} variant="secondary">
                 <div className="flex items-center justify-between w-full">
                   <span>
@@ -82,7 +83,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
                 </div>
               </Button>
               <Button onClick={addToCart}>{!inStock ? "Out of stock" : "Add to cart"}</Button>
-            </div>
+            </div> */}
           </div>
         </Transition>
       </div>

@@ -8,6 +8,7 @@ import React, { useRef } from "react"
 import ImageGallery from "../components/image-gallary"
 import MobileActions from "../components/mobile-actions"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import FeaturedProducts from "@modules/home/components/featured-products"
 
 type ProductTemplateProps = {
   product: PricedProduct
@@ -20,12 +21,12 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
 
   return (
     <ProductProvider product={product}>
-      <div className="content-container flex flex-col small:flex-row small:items-start py-6 relative">
-        <div className="flex flex-col gap-y-8 w-full">
-          <ImageGallery images={(product?.images || [])} />
+      <div className="content-container flex flex-col md:flex-row small:items-start py-6 relative">
+        <div className="flex flex-col gap-y-8 sm:w-1/2">
+          <ImageGallery images={product?.images || []} />
         </div>
         <div
-          className="small:sticky small:top-20 w-full py-8 small:py-0 small:max-w-[344px] medium:max-w-[400px] flex flex-col gap-y-12"
+          className="small:sticky small:top-20 sm:w-1/2 py-8 md:pl-4 small:py-0 small:max-w-[500px] medium:max-w-[600px] flex flex-col gap-y-12"
           ref={info}
         >
           <ProductInfo product={product} />
@@ -33,7 +34,8 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
         </div>
       </div>
       <div className="content-container my-16 px-6 small:px-8 small:my-32">
-        <RelatedProducts product={product} />
+        {/* <RelatedProducts product={product} /> */}
+        <FeaturedProducts />
       </div>
       <MobileActions product={product} show={!inView} />
     </ProductProvider>

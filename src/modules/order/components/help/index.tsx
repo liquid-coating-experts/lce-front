@@ -8,14 +8,10 @@ const Help = () => {
       <div className="text-base-regular my-2">
         <ul className="gap-y-2 flex flex-col">
           <li>
-            <Link href="/contact">
-              Contact
-            </Link>
+            <Link href="/information">Contact</Link>
           </li>
           <li>
-            <Link href="/contact">
-              Returns & Exchanges
-            </Link>
+            <Link href="/delivery-information">Returns & Exchanges</Link>
           </li>
         </ul>
       </div>

@@ -5,6 +5,7 @@ import Back from "@modules/common/icons/back"
 import FastDelivery from "@modules/common/icons/fast-delivery"
 import Refresh from "@modules/common/icons/refresh"
 import clsx from "clsx"
+import Link from "next/link"
 import { useMemo } from "react"
 
 type ProductTabsProps = {
@@ -13,16 +14,32 @@ type ProductTabsProps = {
 
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = useMemo(() => {
-    return [
-      {
-        label: "Product Information",
-        component: <ProductInfoTab product={product} />,
-      },
-      {
-        label: "Shipping & Returns",
-        component: <ShippingInfoTab />,
-      },
-    ]
+    console.log(product.metadata, "all meta")
+    let metaArr = []
+    if (product.metadata) {
+      for (const [key, value] of Object.entries(product.metadata)) {
+        key !== "FEATURED_PRODUCT" && metaArr.push({ k: key, v: value })
+      }
+    }
+    if (metaArr.length > 0) {
+      return [
+        {
+          label: "Specifications",
+          component: <ProductInfoTab product={product} />,
+        },
+        {
+          label: "Shipping & Returns",
+          component: <ShippingInfoTab />,
+        },
+      ]
+    } else {
+      return [
+        {
+          label: "Shipping & Returns",
+          component: <ShippingInfoTab />,
+        },
+      ]
+    }
   }, [product])
 
   return (
@@ -58,44 +75,90 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
 }
 
 const ProductInfoTab = ({ product }: ProductTabsProps) => {
+  type ProductSpecs = {
+    properties: string
+    values: string
+    method?: string
+  }
+  let arrayOfValues = []
+  let specs: ProductSpecs[] = []
+  if (product.metadata) {
+    for (const [key, value] of Object.entries(product.metadata)) {
+      key !== "FEATURED_PRODUCT" && arrayOfValues.push({ k: key, v: value })
+    }
+    arrayOfValues.map((data) => {
+      if (typeof data.v === "string" && data.v.includes("; method:")) {
+        const split = data.v.split(" ; method: ")
+        const theValue = split[0]
+        const theMethod = split[1]
+        specs.push({
+          properties: data.k,
+          values: theValue,
+          method: theMethod,
+        })
+      } else if (typeof data.v === "string") {
+        specs.push({ properties: data.k, values: data.v })
+      }
+    })
+    console.log(arrayOfValues)
+  }
+
   return (
     <Tab.Panel className="text-small-regular py-8">
-      <div className="grid grid-cols-2 gap-x-8">
-        <div className="flex flex-col gap-y-4">
-          <div>
-            <span className="font-semibold">Material</span>
-            <p>{product.material ? product.material : "-"}</p>
-          </div>
-          <div>
-            <span className="font-semibold">Country of origin</span>
-            <p>{product.origin_country ? product.origin_country : "-"}</p>
-          </div>
-          <div>
-            <span className="font-semibold">Type</span>
-            <p>{product.type ? product.type.value : "-"}</p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-y-4">
-          <div>
-            <span className="font-semibold">Weight</span>
-            <p>{product.weight ? `${product.weight} g` : "-"}</p>
-          </div>
-          <div>
-            <span className="font-semibold">Dimensions</span>
-            <p>
-              {product.length && product.width && product.height
-                ? `${product.length}L x ${product.width}W x ${product.height}H`
-                : "-"}
-            </p>
-          </div>
-        </div>
-      </div>
-      {product.tags?.length ? (
+      {specs.length > 0 && (
         <div>
-          <span className="font-semibold">Tags</span>
+          <div className="font-bold grid grid-cols-3 gap-8">
+            <p className="">properties</p>
+            <p>values</p>
+            <p>method</p>
+          </div>
+          {specs.map((spec) => (
+            <div key={spec.properties} className="grid grid-cols-3 gap-8">
+              <p>{spec.properties}</p>
+              <p>{spec.values}</p>
+              {spec.method && <p>{spec.method}</p>}
+            </div>
+          ))}
         </div>
-      ) : null}
+      )}
     </Tab.Panel>
+    // <Tab.Panel className="text-small-regular py-8">
+    //   <div className="grid grid-cols-2 gap-x-8">
+    //     <div className="flex flex-col gap-y-4">
+    //       <div>
+    //         <span className="font-semibold">Material</span>
+    //         <p>{product.material ? product.material : "-"}</p>
+    //       </div>
+    //       <div>
+    //         <span className="font-semibold">Country of origin</span>
+    //         <p>{product.origin_country ? product.origin_country : "-"}</p>
+    //       </div>
+    //       <div>
+    //         <span className="font-semibold">Type</span>
+    //         <p>{product.type ? product.type.value : "-"}</p>
+    //       </div>
+    //     </div>
+    //     <div className="flex flex-col gap-y-4">
+    //       <div>
+    //         <span className="font-semibold">Weight</span>
+    //         <p>{product.weight ? `${product.weight} g` : "-"}</p>
+    //       </div>
+    //       <div>
+    //         <span className="font-semibold">Dimensions</span>
+    //         <p>
+    //           {product.length && product.width && product.height
+    //             ? `${product.length}L x ${product.width}W x ${product.height}H`
+    //             : "-"}
+    //         </p>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   {product.tags?.length ? (
+    //     <div>
+    //       <span className="font-semibold">Tags</span>
+    //     </div>
+    //   ) : null}
+    // </Tab.Panel>
   )
 }
 
@@ -108,31 +171,40 @@ const ShippingInfoTab = () => {
           <div>
             <span className="font-semibold">Fast delivery</span>
             <p className="max-w-sm">
-              Your package will arrive in 3-5 business days at your pick up
-              location or in the comfort of your home.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-x-2">
-          <Refresh />
-          <div>
-            <span className="font-semibold">Simple exchanges</span>
-            <p className="max-w-sm">
-              Is the fit not quite right? No worries - we&apos;ll exchange your
-              product for a new one.
+              If ordered by 5pm weekdays, the product will be dispatched the
+              same day and shipped with APC Overnight for next day delivery.
+              Delivery will be trackable on APC Overnight with the tracking
+              number supplied
             </p>
           </div>
         </div>
         <div className="flex items-start gap-x-2">
           <Back />
           <div>
-            <span className="font-semibold">Easy returns</span>
+            <span className="font-semibold">Returns</span>
             <p className="max-w-sm">
-              Just return your product and we&apos;ll refund your money. No
-              questions asked – we&apos;ll do our best to make sure your return
-              is hassle-free.
+              Please refer to our{" "}
+              <Link
+                className="text-blue-700 font-semibold"
+                href="/delivery-information"
+              >
+                Delivery Information
+              </Link>{" "}
+              page regarding returns and other delivery-related topics
             </p>
           </div>
+        </div>
+        <div>
+          <p>
+            Still have unanswered questions? please check out our{" "}
+            <Link className="text-blue-700 font-semibold" href="/faq">
+              FAQ Page
+            </Link>{" "}
+            and{" "}
+            <Link className="text-blue-700 font-semibold" href="/information">
+              General Information page
+            </Link>
+          </p>
         </div>
       </div>
     </Tab.Panel>

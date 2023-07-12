@@ -2,10 +2,12 @@ import { useProductActions } from "@lib/context/product-context"
 import useProductPrice from "@lib/hooks/use-product-price"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import Button from "@modules/common/components/button"
+import NativeSelect from "@modules/common/components/native-select"
 import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
 import Link from "next/link"
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
+// import ReactMarkdown from "react-markdown"
 import { Product } from "types/medusa"
 
 type ProductActionsProps = {
@@ -16,6 +18,8 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const { updateOptions, addToCart, options, inStock, variant } =
     useProductActions()
 
+  const [quantity, setQuantity] = useState(1)
+
   const price = useProductPrice({ id: product.id!, variantId: variant?.id })
 
   const selectedPrice = useMemo(() => {
@@ -23,6 +27,11 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
     return variantPrice || cheapestPrice || null
   }, [price])
+
+  const addItemToCart = () => {
+    addToCart(quantity)
+    setQuantity(1)
+  }
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -35,8 +44,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </Link>
       )}
       <h3 className="text-xl-regular">{product.title}</h3>
+      {product.description && (
+        <div
+          className="text-base-regular"
+          dangerouslySetInnerHTML={{ __html: product.description }}
+        ></div>
+      )}
 
-      <p className="text-base-regular">{product.description}</p>
+      {/* <p className="text-base-regular">{product.description}</p> */}
 
       {product.variants.length > 1 && (
         <div className="my-8 flex flex-col gap-y-6">
@@ -55,7 +70,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </div>
       )}
 
-      <div className="mb-4">
+      <div className="my-6">
         {selectedPrice ? (
           <div className="flex flex-col text-gray-700">
             <span
@@ -78,13 +93,42 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                 </span>
               </>
             )}
+            <span>ex VAT</span>
           </div>
         ) : (
           <div></div>
         )}
       </div>
 
-      <Button onClick={addToCart}>
+      <NativeSelect
+        value={quantity}
+        onChange={(value) => {
+          setQuantity(parseInt(value.target.value))
+        }}
+        className="max-h-[35px] w-[75px]"
+      >
+        {Array.from(
+          [
+            ...Array(
+              product.variants[0].inventory_quantity &&
+                product.variants[0].inventory_quantity > 0
+                ? product.variants[0].inventory_quantity
+                : 20
+            ),
+          ].keys()
+        )
+          .slice(0, 20)
+          .map((i) => {
+            const value = i + 1
+            return (
+              <option value={value} key={i}>
+                {value}
+              </option>
+            )
+          })}
+      </NativeSelect>
+
+      <Button onClick={() => addItemToCart()}>
         {!inStock ? "Out of stock" : "Add to cart"}
       </Button>
     </div>

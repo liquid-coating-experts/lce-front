@@ -13,9 +13,12 @@ type ItemProps = {
 
 const Item = ({ item, region }: ItemProps) => {
   const { updateItem, deleteItem } = useStore()
+  console.log(item)
 
   return (
     <div className="grid grid-cols-[122px_1fr] gap-x-4">
+      {/* TODO: add link to product */}
+      {/* <Link href={`/products/${item.}`}> */}
       <div className="w-[122px]">
         <Thumbnail thumbnail={item.thumbnail} size="full" />
       </div>
@@ -40,11 +43,11 @@ const Item = ({ item, region }: ItemProps) => {
                 ...Array(
                   item.variant.inventory_quantity > 0
                     ? item.variant.inventory_quantity
-                    : 10
+                    : 20
                 ),
               ].keys()
             )
-              .slice(0, 10)
+              .slice(0, 20)
               .map((i) => {
                 const value = i + 1
                 return (

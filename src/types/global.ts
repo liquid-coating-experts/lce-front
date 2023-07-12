@@ -1,7 +1,10 @@
+import { ProductTag, ProductVariant, VariantInventory } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import { getVariantPrice } from "medusa-react"
 import { NextPage } from "next"
 import { AppProps } from "next/app"
 import { ReactElement, ReactNode } from "react"
+import { Variant } from "./medusa"
 
 export type CollectionData = {
   id: string
@@ -13,6 +16,8 @@ export type FeaturedProduct = {
   title: string
   handle: string
   thumbnail?: string
+  subtitle: string
+  tag?: ProductTag[]
 }
 
 export type StoreNavData = {
@@ -51,8 +56,13 @@ export type AppPropsWithLayout<P = {}, IP = P> = AppProps<P> & {
 export type ProductPreviewType = {
   id: string
   title: string
+  subtitle: string
+  variants?: string | null
   handle: string | null
   thumbnail: string | null
+  tag?: ProductTag[]
+  metadata?: Record<string, unknown>
+
   price?: {
     calculated_price: string
     original_price: string

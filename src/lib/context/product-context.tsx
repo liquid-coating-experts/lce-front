@@ -24,7 +24,7 @@ interface ProductContext {
   updateOptions: (options: Record<string, string>) => void
   increaseQuantity: () => void
   decreaseQuantity: () => void
-  addToCart: () => void
+  addToCart: (quantity: number) => void
 }
 
 const ProductActionContext = createContext<ProductContext | null>(null)
@@ -50,7 +50,7 @@ export const ProductProvider = ({
   useEffect(() => {
     // initialize the option state
     const optionObj: Record<string, string> = {}
-    for (const option of (product.options || [])) {
+    for (const option of product.options || []) {
       Object.assign(optionObj, { [option.id]: undefined })
     }
     setOptions(optionObj)
@@ -119,7 +119,7 @@ export const ProductProvider = ({
     setOptions({ ...options, ...update })
   }
 
-  const addToCart = () => {
+  const addToCart = (quantity: number) => {
     if (variant) {
       addItem({
         variantId: variant.id,

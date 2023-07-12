@@ -24,9 +24,11 @@ const transformProductPreview = (
 
   return {
     id: product.id!,
+    subtitle: product.subtitle!,
     title: product.title!,
     handle: product.handle!,
     thumbnail: product.thumbnail!,
+    tag: product.tags,
     price: cheapestVariant
       ? {
           calculated_price: formatAmount({

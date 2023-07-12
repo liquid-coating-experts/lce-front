@@ -6,6 +6,7 @@ import Button from "@modules/common/components/button"
 import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import Trash from "@modules/common/icons/trash"
+import Trolley from "@modules/common/icons/trolley"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { formatAmount, useCart } from "medusa-react"
 import Link from "next/link"
@@ -18,10 +19,24 @@ const CartDropdown = () => {
   const { state, open, close } = useCartDropdown()
 
   return (
-    <div className="h-full z-50" onMouseEnter={open} onMouseLeave={close}>
+    <div
+      className="h-full z-50"
+      onMouseEnter={open}
+      onMouseLeave={close}
+      onTouchStart={state === true ? close : open}
+    >
       <Popover className="relative h-full">
         <Link href="/cart" passHref>
-          <Popover.Button className="h-full">{`My Bag (${totalItems})`}</Popover.Button>
+          <Popover.Button className="h-full">
+            <div className="flex">
+              <Trolley height={25} width={25} />
+              <div className=" bg-theme_yellow-900 rounded-full w-5 h-5">
+                <p className="flex  justify-center  m-0 p-0 text-sm">
+                  {totalItems}
+                </p>
+              </div>
+            </div>
+          </Popover.Button>
         </Link>
         <Transition
           show={state}
@@ -35,7 +50,8 @@ const CartDropdown = () => {
         >
           <Popover.Panel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[382px] text-gray-900"
+            // TODO - remove "hidden" css...?
+            className=" small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[382px] text-gray-900"
           >
             <div className="p-4 flex items-center justify-center">
               <h3 className="text-large-semi">Shopping Bag</h3>

@@ -2,6 +2,7 @@ import Head from "@modules/common/components/head"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import Layout from "@modules/layout/templates"
+import FeaturedVideos from "../components/featured-videos"
 import { ReactElement } from "react"
 import { NextPageWithLayout } from "types/global"
 
@@ -14,6 +15,9 @@ const Home: NextPageWithLayout = () => {
       />
       <Hero />
       <FeaturedProducts />
+      <div className="w-screen bg-theme_blue-900 text-white py-16">
+        <FeaturedVideos />
+      </div>
     </>
   )
 }
