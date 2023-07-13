@@ -12,23 +12,23 @@ const FAQ = () => {
     },
     {
       q: "When will my order arrive?",
-      a: "Of Course! Just give us a call when you’re an hour away so we can make sure you can pick up your order swiftly!",
+      a: "If you placed your order before 5pm, we aim to deliver your products the next working day",
     },
     {
       q: "Can I track my order?",
-      a: "Of Course! Just give us a call when you’re an hour away so we can make sure you can pick up your order swiftly!",
+      a: "Of Course! we will send you the relevant tracking details when you complete your order!",
     },
     {
       q: "Is there a warranty on your products?",
-      a: "Of Course! Just give us a call when you’re an hour away so we can make sure you can pick up your order swiftly!",
+      a: "Yes! just check out our 'Information' page for the details.",
     },
     {
       q: "Can I pay in cash?",
-      a: "Of Course! Just give us a call when you’re an hour away so we can make sure you can pick up your order swiftly!",
+      a: "Yep. Just give us a call so we can sort out the logistics and get your order ready for you",
     },
     {
       q: "How do I apply for the training workshop?",
-      a: "Of Course! Just give us a call when you’re an hour away so we can make sure you can pick up your order swiftly!",
+      a: "Simply fill out the form on our 'Information' page and we'll be in touch with the next steps",
     },
   ]
 
