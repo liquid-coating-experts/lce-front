@@ -60,7 +60,7 @@ const Nav = () => {
           <div className="flex items-center h-full">
             <Link href="/" className="w-56 sm-w-fit ">
               <Image
-                src="/LCE_main.png"
+                src="/brand.png"
                 alt="brand logo"
                 width={240}
                 height={50}

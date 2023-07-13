@@ -37,7 +37,7 @@ const MainMenu = () => {
           </button>
         </div>
         <div>
-          <Image src="/LCE_main.png" alt="brand logo" width={240} height={50} />
+          <Image src="/brand.png" alt="brand logo" width={240} height={50} />
         </div>
         <div className="flex-1 basis-0 flex justify-end">
           <button onClick={close}>

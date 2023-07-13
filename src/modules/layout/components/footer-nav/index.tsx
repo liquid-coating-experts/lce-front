@@ -16,12 +16,7 @@ const FooterNav = () => {
       <div className="flex flex-col gap-y-6 items-center justify-between">
         <div>
           <Link href="/" className="">
-            <Image
-              src="/LCE_main.png"
-              width={240}
-              height={50}
-              alt="brand logo"
-            />
+            <Image src="/brand.png" width={240} height={50} alt="brand logo" />
           </Link>
         </div>
         {/* <div className="flex flex-col gap-y-2">
