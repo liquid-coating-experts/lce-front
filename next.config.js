@@ -8,7 +8,7 @@ module.exports = withStoreConfig({
     domains: [
       "medusa-public-images.s3.eu-west-1.amazonaws.com",
       "localhost",
-      "127.0.0.1",
+      "lce-bucket.fra1.digitaloceanspaces.com",
     ],
   },
 })

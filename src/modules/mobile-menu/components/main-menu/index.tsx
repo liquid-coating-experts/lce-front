@@ -98,6 +98,49 @@ const MainMenu = () => {
 
         <div className="flex flex-col">
           <div className="flex flex-col gap-y-8 text-small-regular">
+            <div className="flex flex-col gap-y-4">
+              {/* <span className="text-gray-700 text-lg font-bold uppercase">
+                Navigation
+              </span> */}
+              <ul className="grid grid-cols-1 gap-y-2 text-base">
+                <li>
+                  <Link href="/faq" rel="noreferrer">
+                    FAQ
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/delivery-information" rel="noreferrer">
+                    Delivery Information
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/information" rel="noreferrer">
+                    Learn More
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/information" rel="noreferrer">
+                    Contact Us
+                  </Link>
+                </li>
+              </ul>
+              {/* <button
+                className="flex items-center justify-between border-b border-gray-200 py-2"
+                onClick={setScreenCountry}
+              >
+                <span className="sr-only">
+                  Click to select shipping country
+                </span>
+                <div className="flex items-center gap-x-2">
+                  <ReactCountryFlag countryCode={countryCode || "us"} svg />
+                  <span className="normal-case">
+                    Shipping to{" "}
+                    {countries?.find((c) => c.country === countryCode)?.label}
+                  </span>
+                </div>
+                <ChevronDown className="-rotate-90" />
+              </button> */}
+            </div>
             {!customer ? (
               <div className="flex flex-col gap-y-4">
                 <span className="text-gray-700 uppercase">Account</span>
@@ -127,25 +170,6 @@ const MainMenu = () => {
                 </Link>
               </div>
             )}
-            <div className="flex flex-col gap-y-4">
-              <span className="text-gray-700 uppercase">Delivery</span>
-              <button
-                className="flex items-center justify-between border-b border-gray-200 py-2"
-                onClick={setScreenCountry}
-              >
-                <span className="sr-only">
-                  Click to select shipping country
-                </span>
-                <div className="flex items-center gap-x-2">
-                  <ReactCountryFlag countryCode={countryCode || "us"} svg />
-                  <span className="normal-case">
-                    Shipping to{" "}
-                    {countries?.find((c) => c.country === countryCode)?.label}
-                  </span>
-                </div>
-                <ChevronDown className="-rotate-90" />
-              </button>
-            </div>
           </div>
         </div>
       </div>
