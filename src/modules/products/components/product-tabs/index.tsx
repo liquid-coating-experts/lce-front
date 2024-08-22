@@ -87,6 +87,8 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
       key !== "FEATURED_PRODUCT" && arrayOfValues.push({ k: key, v: value })
     }
     arrayOfValues.map((data) => {
+      console.log(data)
+
       if (typeof data.v === "string" && data.v.includes("; method:")) {
         const split = data.v.split(" ; method: ")
         const theValue = split[0]
@@ -100,7 +102,7 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
         specs.push({ properties: data.k, values: data.v })
       }
     })
-    console.log(arrayOfValues)
+    // console.log(arrayOfValues)
   }
 
   return (
