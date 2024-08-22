@@ -41,7 +41,8 @@ const Item = ({ item, region }: ItemProps) => {
             {Array.from(
               [
                 ...Array(
-                  item.variant.inventory_quantity > 0
+                  item.variant.inventory_quantity &&
+                    item.variant.inventory_quantity > 0
                     ? item.variant.inventory_quantity
                     : 20
                 ),
