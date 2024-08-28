@@ -315,14 +315,15 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
     complete(undefined, {
       onSuccess: ({ data }) => {
         resetCart()
+        console.log(data, "order details", " at order/confirmed/...")
         // custom code added since getting 404 page on order completition and getting order
-        if (data && data.id && data.id.includes("cart_")) {
-          fetch(`/api/error/report`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          })
-        }
+        // if (data && data.id && data.id.includes("cart_")) {
+        //   fetch(`/api/error/report`, {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify(data)
+        //   });
+        // }
 
         push(`/order/confirmed/${data.id}`)
       },
