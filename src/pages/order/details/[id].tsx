@@ -36,6 +36,7 @@ const Confirmed: NextPageWithLayout = () => {
     if (IS_BROWSER) {
       router.replace("/404")
       console.log(data, " - data")
+      console.log(id, " - id")
     }
 
     return <SkeletonOrderConfirmed />
