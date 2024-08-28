@@ -34,7 +34,7 @@ const Confirmed: NextPageWithLayout = () => {
 
   if (isError) {
     if (IS_BROWSER) {
-      router.replace("/404")
+      // router.replace("/404")
       console.log(data, " - data")
       console.log(id, " - id")
     }
