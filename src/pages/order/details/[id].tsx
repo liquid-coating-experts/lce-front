@@ -28,13 +28,12 @@ const Confirmed: NextPageWithLayout = () => {
     }
   )
 
-  console.log(isSuccess, data, isLoading, isError)
-
   if (isLoading) {
     return <SkeletonOrderConfirmed />
   }
 
   if (isError) {
+    console.log("isError - ", isSuccess, data, isLoading, isError)
     if (IS_BROWSER) {
       router.replace("/404")
     }
@@ -43,6 +42,7 @@ const Confirmed: NextPageWithLayout = () => {
   }
 
   if (isSuccess) {
+    console.log("isSucess - ", isSuccess, data, isLoading, isError)
     return (
       <>
         <Head
