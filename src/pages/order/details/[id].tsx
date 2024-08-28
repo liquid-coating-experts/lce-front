@@ -28,6 +28,8 @@ const Confirmed: NextPageWithLayout = () => {
     }
   )
 
+  console.log("test")
+
   if (isLoading) {
     return <SkeletonOrderConfirmed />
   }
@@ -41,7 +43,6 @@ const Confirmed: NextPageWithLayout = () => {
   }
 
   if (isSuccess) {
-    console.log(data)
     return (
       <>
         <Head
