@@ -325,7 +325,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
         //   });
         // }
 
-        push(`/order/confirmed/${data.id}`)
+        // push(`/order/confirmed/${data.id}`)
       },
     })
   }
