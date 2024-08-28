@@ -34,15 +34,14 @@ const Confirmed: NextPageWithLayout = () => {
 
   if (isError) {
     if (IS_BROWSER) {
-      // router.replace("/404")
-      console.log(data, " - data")
-      console.log(id, " - id")
+      router.replace("/404")
     }
 
     return <SkeletonOrderConfirmed />
   }
 
   if (isSuccess) {
+    console.log(data)
     return (
       <>
         <Head
