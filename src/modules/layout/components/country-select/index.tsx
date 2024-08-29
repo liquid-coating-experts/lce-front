@@ -14,8 +14,13 @@ type CountryOption = {
 const CountrySelect = () => {
   const { countryCode, setRegion } = useStore()
   const { regions } = useRegions()
-  const [current, setCurrent] = useState<CountryOption | undefined>(undefined)
+  // const [current, setCurrent] = useState<CountryOption | undefined>(undefined)
   const { state, open, close } = useToggleState()
+  const [current, setCurrent] = useState<CountryOption | undefined>(() => {
+    return countryCode
+      ? options?.find((o) => o.country === countryCode)
+      : undefined
+  })
 
   const options: CountryOption[] | undefined = useMemo(() => {
     return regions
@@ -29,10 +34,16 @@ const CountrySelect = () => {
       .flat()
   }, [regions])
 
+  // useEffect(() => {
+  //   if (countryCode) {
+  //     const option = options?.find((o) => o.country === countryCode)
+  //     setCurrent(option)
+  //   }
+  // }, [countryCode, options])
   useEffect(() => {
     if (countryCode) {
-      const option = options?.find((o) => o.country === countryCode)
-      setCurrent(option)
+      const selectedOption = options?.find((o) => o.country === countryCode)
+      setCurrent(selectedOption)
     }
   }, [countryCode, options])
 
@@ -40,16 +51,18 @@ const CountrySelect = () => {
     setRegion(option.region, option.country)
     close()
   }
+  const handleStringChange = (value: string) => {
+    const selectedOption = options?.find((o) => o.country === value)
+    if (selectedOption) {
+      handleChange(selectedOption)
+    }
+  }
 
   return (
     <div onMouseEnter={open} onMouseLeave={close}>
       <Listbox
         onChange={handleChange}
-        defaultValue={
-          countryCode
-            ? options?.find((o) => o.country === countryCode)
-            : undefined
-        }
+        value={current} // current should hold the selected CountryOption object
       >
         <Listbox.Button className="py-1 w-full">
           <div className="text-small-regular flex items-center gap-x-2 xsmall:justify-end">
