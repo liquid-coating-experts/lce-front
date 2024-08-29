@@ -99,9 +99,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      // dehydratedState: dehydrate(queryClient),
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-
+      dehydratedState: dehydrate(queryClient),
       notFound: false,
     },
   }
