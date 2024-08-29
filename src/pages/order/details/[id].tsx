@@ -28,6 +28,8 @@ const Confirmed: NextPageWithLayout = () => {
     }
   )
 
+  console.log(isLoading, isError, isSuccess, "[id].tsx", data, id)
+
   if (isLoading) {
     return <SkeletonOrderConfirmed />
   }

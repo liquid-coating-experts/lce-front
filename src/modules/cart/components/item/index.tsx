@@ -13,7 +13,7 @@ type ItemProps = {
 
 const Item = ({ item, region }: ItemProps) => {
   const { updateItem, deleteItem } = useStore()
-  console.log(item)
+  // console.log(item)
 
   return (
     <div className="grid grid-cols-[122px_1fr] gap-x-4">

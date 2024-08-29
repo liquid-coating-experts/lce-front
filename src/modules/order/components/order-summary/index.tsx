@@ -14,6 +14,8 @@ const OrderSummary = ({ order }: OrderSummaryProps) => {
     return formatAmount({ amount, region: order.region, includeTaxes: false })
   }
 
+  console.log(order, "order variable from modules folder")
+
   return (
     <div>
       <h2 className="text-base-semi">Order Summary</h2>

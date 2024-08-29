@@ -22,7 +22,7 @@ const FeaturedProducts = () => {
                   product.metadata &&
                   "FEATURED_PRODUCT" in product.metadata
                 ) {
-                  console.log(product)
+                  // console.log(product)
 
                   return (
                     <li key={product.id}>

@@ -14,7 +14,7 @@ type ProductTabsProps = {
 
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = useMemo(() => {
-    console.log(product.metadata, "all meta")
+    // console.log(product.metadata, "all meta")
     let metaArr = []
     if (product.metadata) {
       for (const [key, value] of Object.entries(product.metadata)) {
